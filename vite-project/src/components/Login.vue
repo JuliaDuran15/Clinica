@@ -94,12 +94,7 @@
               >
                 Forgot Password?
               </router-link>
-              <p class="text-base text-[#adadad]">
-                Not a member yet?
-                <router-link to="/register" class="text-primary hover:underline">
-                  Sign Up
-                </router-link>
-              </p>
+              
             </div>
           </div>
         </div>

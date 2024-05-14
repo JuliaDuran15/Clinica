@@ -246,32 +246,40 @@
           name: '',
           email: '',
           password: '',
-          cep: ''
+          cep: '',
+          rua:'',
+          bairro:'' ,
+          localidadee: '' ,
+          uf: ''
           // Include other fields if necessary
         }
       };
     },
     methods: {
-      fetchCep() {
-        const cep = this.user.cep.replace(/\D/g, ''); // Remove non-numeric characters
-        if (cep.length === 8) {
-          axios.get(`https://viacep.com.br/ws/${cep}/json/`)
-            .then(response => {
-              const data = response.data;
-              if (data.erro) {
-                alert('CEP não encontrado.');
-              } else {
-                // Assign data to user object fields if necessary
-              }
-            })
-            .catch(error => {
-              console.error('Erro ao obter dados do CEP:', error);
-              alert('Erro ao obter dados do CEP. Por favor, tente novamente.');
-            });
-        } else {
-          alert('CEP inválido. Digite apenas os números.');
-        }
-      },
+        fetchCep() {
+    const cep = this.user.cep.replace(/\D/g, ''); // Remove non-numeric characters
+    if (cep.length === 8) {
+        axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+        .then(response => {
+            const data = response.data;
+            if (data.erro) {
+            alert('CEP não encontrado.');
+            } else {
+            this.user.rua = data.logradouro;
+            this.user.bairro = data.bairro;
+            this.user.localidade = data.localidade;
+            this.user.uf = data.uf;
+            }
+      })
+      .catch(error => {
+        console.error('Erro ao obter dados do CEP:', error);
+        alert('Erro ao obter dados do CEP. Por favor, tente novamente.');
+      });
+  } else {
+    alert('CEP inválido. Digite apenas os números.');
+  }
+},
+
       handleSubmit() {
         console.log('User Registration:', this.user);
         // Placeholder for actual submission logic
